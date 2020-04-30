@@ -19,6 +19,7 @@ type Wallets struct {
 
 // NewWallets creates Wallets and fills it from a file if it exists
 func NewWallets(nodeID string) (*Wallets, error) {
+	// 结构体初始化
 	wallets := Wallets{}
 	wallets.Wallets = make(map[string]*Wallet)
 
@@ -80,6 +81,7 @@ func (ws *Wallets) LoadFromFile(nodeID string) error {
 
 // SaveToFile saves wallets to a file
 func (ws Wallets) SaveToFile(nodeID string) {
+	//缓存
 	var content bytes.Buffer
 	walletFile := fmt.Sprintf(walletFile, nodeID)
 

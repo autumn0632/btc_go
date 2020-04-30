@@ -32,9 +32,12 @@ func CreateBlockchain(address, nodeID string) *Blockchain {
 
 	var tip []byte
 
+	// 创建"创世块"的交易
 	cbtx := NewCoinbaseTX(address, genesisCoinbaseData)
+	// 交易打包
 	genesis := NewGenesisBlock(cbtx)
 
+	// 数据持久化
 	db, err := bolt.Open(dbFile, 0600, nil)
 	if err != nil {
 		log.Panic(err)

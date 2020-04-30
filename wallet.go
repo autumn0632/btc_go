@@ -29,6 +29,7 @@ func NewWallet() *Wallet {
 }
 
 // GetAddress returns wallet address
+// 从公钥中获取地址
 func (w Wallet) GetAddress() []byte {
 	pubKeyHash := HashPubKey(w.PublicKey)
 
@@ -75,11 +76,13 @@ func checksum(payload []byte) []byte {
 }
 
 func newKeyPair() (ecdsa.PrivateKey, []byte) {
+	// 密钥对生成：使用 Secp256k1 ECDSA 标准生成椭圆曲线，使用椭圆生成一个私钥，然后再从私钥中生成对应的公钥。
 	curve := elliptic.P256()
 	private, err := ecdsa.GenerateKey(curve, rand.Reader)
 	if err != nil {
 		log.Panic(err)
 	}
+	// 公钥是曲线上的两个坐标
 	pubKey := append(private.PublicKey.X.Bytes(), private.PublicKey.Y.Bytes()...)
 
 	return *private, pubKey

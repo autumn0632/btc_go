@@ -184,9 +184,13 @@ func NewCoinbaseTX(to, data string) *Transaction {
 		data = fmt.Sprintf("%x", randData)
 	}
 
+	// coinbase 交易没有输入，只有输出：产生一个块时系统附带的奖励
 	txin := TXInput{[]byte{}, -1, nil, []byte(data)}
+	// 将奖励发给owner，产生一笔未交易输出
 	txout := NewTXOutput(subsidy, to)
+	// 打包交易
 	tx := Transaction{nil, []TXInput{txin}, []TXOutput{*txout}}
+	// 交易签名？
 	tx.ID = tx.Hash()
 
 	return &tx

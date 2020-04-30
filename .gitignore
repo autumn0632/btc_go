@@ -1,2 +1,5 @@
+redis/data/dump.rdb
+.DS_Store
+.idea
 *.db
 *.dat
